@@ -1,0 +1,13 @@
+"""Ce ficher contient les informations sur les versions des pachages utilisés dans notre projet Django.
+Vous l'avez utilise  par la cmd 'pip install -r requirements'
+
+il devra etre modifié en cas d'instalation de nouveaux packages"""
+
+asgiref==3.8.1
+Django==5.2.1
+sqlparse==0.5.3
+tzdata==2025.2
+
+"
+
+"

@@ -1,0 +1,53 @@
+
+
+#comment faire fonctionner votre code ?
+#Lire attentivement !!!
+#NB:je commente dans les limites de ma connaissance et je peux me tromper.Faites moi un retour
+#liste de commandes à exécuter
+
+DAVY--------------COMMENT INSTALLER LE PROJET DJANGO SUR VOTRE MACHINE?
+
+
+Après avoir fait le pull ("git clone <url> ou git pull origin main") de mon commit vous avez normalement recu en plus de ce fichier, les 5 fichiers suivants:
+
+1-appDevOps: Il s'agit du projet Django(l'application)
+
+2-.gitignore: Il contient les noms des fichers stockés en local, mais qui ne doivent pas etre pris en compte dans le git commit.
+            Vous remarquerez que j'y ai ecrit "*virtual_env" (On précède d'une * le nom du fichier à ajouter).virtual_env est mon environnement virtuel local.
+            Il contient le bin\ et scripts\ de python et les packages(dans notre cas django).J'ai procédé ainsi sous la recommandation de la documentation de django.
+            Vous créerez aussi votre environnement virtuel dans les commandes qui suivront.
+3-db.sqlite3:Il s'agit de la base de donnée utilisée par notre projet django.Il est souvent conseillée pour des raisons de sécurité de ne pas la partager sur github. 
+            Vu la nature de notre projet, je n'ai pas trouvé l'interet de nous compliquer la tache.Elle ne sera donc pas dans le .gitignore.
+4-manage.py: Le fichier manage.py dans Django est un script Python essentiel qui sert d'interface de ligne de commande pour interagir avec votre projet Django. 
+            Il joue plusieurs rôles clés:Démarrer le serveur de développement,Créer une nouvelle application dans le projet,Gérer les migrations de la base de données 
+            (création, application, suppression), etc.Il est automatiquement généré lors de la creation du projet django.
+5-requirements: Il contient les versions des packages nécéssaires pour faire fonctionner le projet.Il est utile car nous aurons tous les memes versions et donc normalement
+                pas de soucis de correspondance(ca marche chez moi et pas chez toi).
+
+
+!!!!ON A TOUS DEJA PYTHON INSTALLE SUR NOS MACHINES.VERIFIEZ SI PIP EST INSTALLE, SINON INSTALLEZ LE.
+
+
+
+----COMMANDES A EXECUTER------- 
+ 
+ 
+cd <mon_du_projet- ici "Examen-de-DevOps"> #pour vous deplacer dans le repertoire PARENT du projet GIT.
+
+python -m venv <nom de votre environnement virtuel> #ce dossier est un environnement virtuel qui va contenir tous les packages utilisés(python, django)-Le nom du ficher est à souhait.Il s'agit de la methode de développement  recommandée.Après l'avoir créé vous devez l'ajouter dans un ficher .gitignore pour ne pas qu'il soit pris en compte dans les commit(vu que chacun a son propre environnement virtuel) 
+
+.\<nom de votre environnement virtuel>\Scripts\activate  # source <nom de votre environnement virtuel>/bin/activate(pour linux/Mac OS)-Cette commande active notre environnement virtuel-operation necessaire pour la suite-vous remarquerez le prefixe de la ligne de cmd etre du nom de votre environnement virtuel
+
+pip install -r requirements.txt   #installation des packages necessaires (django etc.)
+
+
+#A présent , on vérifie que notre  Django fonctionne correctement en lancant le serveur puis en ouvrant la pade d'accueil avec le navigateur et  l'URL indiquée(généralement ' http://127.0.0.1:8000/ ')
+python manage.py  appDevOps
+
+python manage.py runserver #Pour lancer le serveur
+
+#faire un CTRL+Break pour fermer le serveur
+
+#P.S -Crééer dans le repertoire Examen-de-DevOps  un ficher ".gitignore" qui va contenir les noms des  fichers (précédés d'un point) qui ne doivent pas etre pris en compte dans vos commit; dans notre cas il s'agit de l'env. virtuel 
+
+#Igor devra configurer les URL pour faire marcher la page web-Confère documentation de django
