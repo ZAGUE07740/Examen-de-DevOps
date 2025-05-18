@@ -3,7 +3,7 @@
 #comment faire fonctionner votre code ?
 #Lire attentivement !!!
 #NB:je commente dans les limites de ma connaissance et je peux me tromper.Faites moi un retour
-#liste de commandes à exécuter
+
 
 DAVY--------------COMMENT INSTALLER LE PROJET DJANGO SUR VOTRE MACHINE?
 
@@ -31,6 +31,7 @@ Après avoir fait le pull ("git clone <url> ou git pull origin main") de mon com
 
 ----COMMANDES A EXECUTER------- 
  
+Ouvrez l'invite de commande en tant qu'administrateur et executez les commandes suivantes
  
 cd <mon_du_projet- ici "Examen-de-DevOps"> #pour vous deplacer dans le repertoire PARENT du projet GIT.
 
@@ -41,13 +42,16 @@ python -m venv <nom de votre environnement virtuel> #ce dossier est un environne
 pip install -r requirements.txt   #installation des packages necessaires (django etc.)
 
 
-#A présent , on vérifie que notre  Django fonctionne correctement en lancant le serveur puis en ouvrant la pade d'accueil avec le navigateur et  l'URL indiquée(généralement ' http://127.0.0.1:8000/ ')
-python manage.py  appDevOps
+#A présent , on vérifie que notre  Django fonctionne correctement en lancant le serveur 
 
 python manage.py runserver #Pour lancer le serveur
 
+#puis en ouvrant la page d'accueil avec le navigateur et  l'URL indiquée(généralement ' http://127.0.0.1:8000/ ')
+
 #faire un CTRL+Break pour fermer le serveur
 
-#P.S -Crééer dans le repertoire Examen-de-DevOps  un ficher ".gitignore" qui va contenir les noms des  fichers (précédés d'un point) qui ne doivent pas etre pris en compte dans vos commit; dans notre cas il s'agit de l'env. virtuel 
+#Inscrire le noms de votre environnement virtuel dans le fichier .gitignore("Mettre une * devant le nom)
+
+
 
 #Igor devra configurer les URL pour faire marcher la page web-Confère documentation de django
