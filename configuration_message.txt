@@ -44,6 +44,7 @@ pip install -r requirements.txt   #installation des packages necessaires (django
 
 #A présent , on vérifie que notre  Django fonctionne correctement en lancant le serveur 
 
+python manage.py migrate (Pour effectué les migrations)
 python manage.py runserver #Pour lancer le serveur
 
 #puis en ouvrant la page d'accueil avec le navigateur et  l'URL indiquée(généralement ' http://127.0.0.1:8000/ ')
