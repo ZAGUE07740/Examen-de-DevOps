@@ -1,17 +1,20 @@
-# Utilise une image Python officielle
+# Utiliser une image Python officielle
 FROM python:3.12
 
-# Définir le dossier de travail
+# Définir le dossier de travail dans le conteneur
 WORKDIR /app
 
-# Copier les fichiers du projet
+# Copier les dépendances
+COPY requirements.txt .
+
+# Installer les paquets Python
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# Copier l’ensemble du projet dans le conteneur
 COPY . .
 
-# Installer les dépendances
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Ouvrir le port 8000
+# Exposer le port utilisé par Django
 EXPOSE 8000
 
-# Commande pour exécuter le serveur Django
+# Commande exécutée au démarrage du conteneur
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

@@ -49,4 +49,19 @@ python manage.py runserver  # Pour lancer le serveur
 5. N'oubliez pas d'inscrire le nom de votre environnement virtuel dans le fichier .gitignore (Mettre une * devant le nom)
 
 
+### DOCKER
+Pour exécuter l'application sans rien installer d'autre que Docker, suivez les étapes ci-dessous:
+1. Assurez-vous d’avoir Docker Desktop installé et en cours d’exécution sur votre machine.
 
+2. Depuis la racine du projet, exécutez les commandes suivantes dans votre terminal:
+   * Construire l'image Docker:
+      docker-compose build
+
+   * Lancer les conteneurs (serveur Django + base de données si ajoutée):
+      docker-compose up
+
+3. Une fois les conteneurs lancés, ouvrez votre navigateur et accédez à: 
+      http://localhost:8000 ou http://127.0.0.1:8000
+
+4. Pour arrêter l'exécution:
+      docker-compose down
