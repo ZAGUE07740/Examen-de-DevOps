@@ -1,3 +1,6 @@
 venv_devops/
 
 *virtual_env
+
+*.pyc
+__pycache__/
