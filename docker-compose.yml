@@ -1,11 +1,37 @@
+
+
 services:
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: django_db
+      POSTGRES_USER: django_user
+      POSTGRES_PASSWORD: django_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
   web:
     build: .
     container_name: django_app
-    ports:
-      - "8000:8000"
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
     environment:
-      - DEBUG=1
-    command: python manage.py runserver 0.0.0.0:8000
+      DEBUG: 1
+      DATABASE_NAME: django_db
+      DATABASE_USER: django_user
+      DATABASE_PASSWORD: django_password
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+
+volumes:
+  postgres_data:

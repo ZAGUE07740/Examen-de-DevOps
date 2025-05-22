@@ -4,3 +4,4 @@ venv_devops/
 
 *.pyc
 __pycache__/
+*.env
