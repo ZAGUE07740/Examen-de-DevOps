@@ -65,3 +65,22 @@ Pour exécuter l'application sans rien installer d'autre que Docker, suivez les 
 
 4. Pour arrêter l'exécution:
       docker-compose down
+
+-----------------------------------------------------------------------------------------------------------------------------------
+Partie Base de données 
+
+1. Dans le fichier settings.py , à la partie Database, il y'a les infos pour la connexion avec la base de données
+2. Il s'agit d'une base de données PostgreSql .
+3. La base de données stocke les villes qui seront affichées dans le fichier html
+4. Donc on aura plus besoin d'ajouter les villes manuellement dans le fichier views.py ou dans le fichier html.
+5. Il faudra creer un superuser avec la commande python manage.py createsuperuser
+6. Aller sur http://127.0.0.1:8000/admin et mettre les infos de connexion du superuser pour se connecter 
+7. Et vous pourrez ajouter ou supprimer les villes 
+8. Les villes déja mises seront enregistrées dans un fichier City.json pour vous permettre de les recuperer 
+9. Vous ferez python manage.py loaddata City.json pour importer les données 
+
+Nb: N'oubliez pas d'installer les nouvelles bibliothèques ajoutées dans le requirements.txt
+-----------------------------------------------------------------------------------------------------------------------------------
+Partie Docker-compose et Jenkinsfile 
+
+1. Le Docker-compose a été modifier de sorte à prendre en compte l'application mais aussi la base de données .
