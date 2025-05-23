@@ -3,18 +3,18 @@ pipeline {
 
     environment {
         // Identifiants Docker Hub
-        DOCKER_USERNAME = "username_dockerhub"
+        DOCKER_USERNAME = "zague07"
         DOCKER_CREDENTIALS = credentials("credentials_id_jenkins")
         IMAGE_VERSION = "1.${BUILD_NUMBER}"
         DOCKER_IMAGE = "${DOCKER_USERNAME}/examen-de-devops:${IMAGE_VERSION}"
-        DOCKER_CONTAINER = "examen-de-devops-app"
+        DOCKER_CONTAINER = "examen-de-devops-app-${BUILD_NUMBER}"
     }
 
     stages {
         stage("Checkout") {
             steps {
                 // Cloner le dépôt GitHub
-                git branch: 'main', url: 'https://github.com/ZAGUE07740/Examen-de-DevOps.git'
+                git branch: 'main', url: 'https://github.com/ZAGUE07740/Examen-de-DevOps.git', credentialsId:"credentials_id_jenkins"
             }
         }
 
@@ -60,12 +60,12 @@ pipeline {
 
     post {
         success {
-            mail to: 'tezagre86@gmail.com ',
+            mail to: 'ezagre86@gmail.com ',
                  subject: "Succès: Déploiement ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
                  body: "Le déploiement s'est terminé avec succès."
         }
         failure {
-            mail to: 'tezagre86@gmail.com ',
+            mail to: 'ezagre86@gmail.com ',
                  subject: "Échec: Déploiement ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
                  body: "Le déploiement a échoué. Veuillez vérifier Jenkins."
         }
