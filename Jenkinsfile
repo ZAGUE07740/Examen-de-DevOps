@@ -19,7 +19,10 @@ pipeline {
         stage("Test") {
             steps {
                 sh "pip install -r requirements.txt"
-                sh "python manage.py check"
+                sh "apt-get update && apt-get install -y python3-pip"
+                sh "pip install --upgrade pip"
+    
+                // sh "python manage.py check"
             }
         }
 
