@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.12-slim'
-            args '-u root -v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    agent any
 
     environment {
         DOCKER_USERNAME = "zague07"
@@ -17,16 +12,12 @@ pipeline {
     stages {
         stage("Checkout") {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/ZAGUE07740/Examen-de-DevOps.git',
-                    credentialsId: 'credentials_id_jenkins'
+                git branch: 'main', url: 'https://github.com/ZAGUE07740/Examen-de-DevOps.git', credentialsId: 'credentials_id_jenkins'
             }
         }
 
         stage("Test") {
             steps {
-                echo "Exécution des tests Django..."
-                sh "pip install --upgrade pip"
                 sh "pip install -r requirements.txt"
                 sh "python manage.py check"
             }
@@ -34,15 +25,15 @@ pipeline {
 
         stage("Build Docker Image") {
             steps {
-                sh "docker build -t ${DOCKER_IMAGE} ."
+                sh "docker build -t $DOCKER_IMAGE ."
             }
         }
 
         stage("Push image to Docker Hub") {
             steps {
                 sh """
-                    echo ${DOCKER_CREDENTIALS_PSW} | docker login -u ${DOCKER_CREDENTIALS_USR} --password-stdin
-                    docker push ${DOCKER_IMAGE}
+                    echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin
+                    docker push $DOCKER_IMAGE
                 """
             }
         }
@@ -50,23 +41,10 @@ pipeline {
         stage("Deploy Container") {
             steps {
                 sh """
-                    docker rm -f ${DOCKER_CONTAINER} || true
-                    docker run -d --name ${DOCKER_CONTAINER} -p 8000:8000 ${DOCKER_IMAGE}
+                    docker rm -f $DOCKER_CONTAINER || true
+                    docker run -d --name $DOCKER_CONTAINER -p 8000:8000 $DOCKER_IMAGE
                 """
             }
-        }
-    }
-
-    post {
-        success {
-            mail to: 'ezagre86@gmail.com',
-                 subject: "Succès: Déploiement ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
-                 body: "Le déploiement s'est terminé avec succès."
-        }
-        failure {
-            mail to: 'ezagre86@gmail.com',
-                 subject: "Échec: Déploiement ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
-                 body: "Le déploiement a échoué. Veuillez vérifier Jenkins."
         }
     }
 }
