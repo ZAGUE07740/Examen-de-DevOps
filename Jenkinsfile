@@ -14,7 +14,7 @@ pipeline {
         stage("Checkout") {
             steps {
                 // Cloner le dépôt GitHub
-                git branch: 'main', url: 'https://github.com/ZAGUE07740/Examen-de-DevOps.git', credentialsId:"credentials_id_jenkins"
+                git branch: 'main', url: 'https://github.com/ZAGUE07740/Examen-de-DevOps.git'
             }
         }
 
