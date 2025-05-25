@@ -21,8 +21,8 @@ pipeline {
         stage("Test") {
             steps {
                 echo "Exécution des tests Django..."
-                bat "pip install -r requirements.txt"
-                bat "python manage.py check"
+                sh "pip install -r requirements.txt"
+                sh "python manage.py check"
             }
         }
 
