@@ -21,39 +21,32 @@ pipeline {
         stage("Test") {
             steps {
                 echo "Exécution des tests Django..."
-                sh "pip install -r requirements.txt"
-                sh "python manage.py check"
+                bat "pip install -r requirements.txt"
+                bat "python manage.py check"
             }
         }
 
         stage("Build Docker Image") {
             steps {
-                script {
-                    sh "docker build -t ${DOCKER_IMAGE} ."
-                }
+                bat "docker build -t %DOCKER_IMAGE% ."
             }
         }
 
         stage("Push image to Docker Hub") {
             steps {
-                script {
-                    sh """
-                        echo ${DOCKER_CREDENTIALS_PSW} | docker login -u ${DOCKER_CREDENTIALS_USR} --password-stdin
-                        docker push ${DOCKER_IMAGE}
-                    """
-                }
+                bat """
+                    echo %DOCKER_CREDENTIALS_PSW% | docker login -u %DOCKER_CREDENTIALS_USR% --password-stdin
+                    docker push %DOCKER_IMAGE%
+                """
             }
         }
 
         stage("Deploy Container") {
             steps {
-                script {
-                    // Arrêter et supprimer l’ancien conteneur s’il existe
-                    sh """
-                        docker rm -f ${DOCKER_CONTAINER} || true
-                        docker run -d --name ${DOCKER_CONTAINER} -p 8000:8000 ${DOCKER_IMAGE}
-                    """
-                }
+                bat """
+                    docker rm -f %DOCKER_CONTAINER% || exit 0
+                    docker run -d --name %DOCKER_CONTAINER% -p 8000:8000 %DOCKER_IMAGE%
+                """
             }
         }
     }
