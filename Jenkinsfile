@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    pipeline {
+    agent {
+        docker {
+            image 'python:3.12-slim'
+        }
+    }
 
     environment {
         DOCKER_USERNAME = "zague07"
