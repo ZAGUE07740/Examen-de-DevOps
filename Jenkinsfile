@@ -1,11 +1,6 @@
 pipeline {
     pipeline {
-    agent {
-        docker {
-            image 'python:3.12-slim'
-        }
-    }
-
+    agent any
     environment {
         DOCKER_USERNAME = "zague07"
         DOCKER_CREDENTIALS = credentials("credentials_id_jenkins")
@@ -23,9 +18,9 @@ pipeline {
 
         stage("Test") {
             steps {
-                sh "pip install -r requirements.txt"
                 sh "apt-get update && apt-get install -y python3-pip"
                 sh "pip install --upgrade pip"
+                sh "pip install -r requirements.txt"
     
                 // sh "python manage.py check"
             }
