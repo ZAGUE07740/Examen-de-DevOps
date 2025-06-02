@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.11' // Utilise une image avec Python et pip déjà installés
-            args '-u root'      // Donne les droits root dans le conteneur d'agent (facultatif)
-        }
-    }
+    agent any
 
     environment {
         DOCKER_USERNAME = "zague07"
@@ -23,8 +18,11 @@ pipeline {
 
         stage("Test") {
             steps {
-                sh "pip install --upgrade pip"
-                sh "pip install -r requirements.txt"
+                sh """
+                    python3 --version || sudo apt-get update && sudo apt-get install -y python3 python3-pip
+                    pip3 install --upgrade pip
+                    pip3 install -r requirements.txt
+                """
             }
         }
 
