@@ -1,5 +1,4 @@
 pipeline {
-    pipeline {
     agent any
     environment {
         DOCKER_USERNAME = "zague07"
@@ -21,7 +20,6 @@ pipeline {
                 sh "apt-get update && apt-get install -y python3-pip"
                 sh "pip install --upgrade pip"
                 sh "pip install -r requirements.txt"
-    
                 // sh "python manage.py check"
             }
         }
@@ -50,5 +48,4 @@ pipeline {
             }
         }
     }
-}
 }
