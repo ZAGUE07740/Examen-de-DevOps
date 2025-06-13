@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.10' 
+        }
+    }
 
     environment {
         DOCKER_USERNAME = "zague07"
@@ -16,23 +20,30 @@ pipeline {
             }
         }
 
-        stage("Test") {
+        stage("Install & Test") {
             steps {
-                sh """
-                    python3 --version || sudo apt-get update && sudo apt-get install -y python3 python3-pip
-                    pip3 install --upgrade pip
-                    pip3 install -r requirements.txt
-                """
+                sh '''
+                    python3 --version
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                    # python manage.py test
+                '''
             }
         }
 
         stage("Build Docker Image") {
+            agent {
+                label 'docker-host' 
+            }
             steps {
                 sh "docker build -t $DOCKER_IMAGE ."
             }
         }
 
         stage("Push image to Docker Hub") {
+            agent {
+                label 'docker-host'
+            }
             steps {
                 sh """
                     echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin
@@ -42,6 +53,9 @@ pipeline {
         }
 
         stage("Deploy Container") {
+            agent {
+                label 'docker-host'
+            }
             steps {
                 sh """
                     docker rm -f $DOCKER_CONTAINER || true
